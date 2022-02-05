@@ -4,16 +4,25 @@
  * column until a player gets four-in-a-row (horiz, vert, or diag) or until
  * board fills (tie)
  */
-const button = document.querySelector('.start');
-button.addEventListener('click', () => {
-	window.location.reload();
+
+document.querySelector('.start').addEventListener('click', () => {
+	let p1 = new Player(document.querySelector('#p1').value);
+	let p2 = new Player(document.querySelector('#p2').value);
+	new Game(p1, p2);
 });
 
+class Player {
+	constructor(colorName = 'black') {
+		this.colorName = colorName;
+	}
+}
+
 class Game {
-	constructor(width = 7, height = 6) {
+	constructor(p1, p2, width = 7, height = 6) {
 		this.width = width;
 		this.height = height;
-		this.currPlayer = 1;
+		this.players = [ p1, p2 ];
+		this.currPlayer = p1;
 		this.makeBoard();
 		this.makeHtmlBoard();
 		this.gameOver = false;
@@ -63,7 +72,8 @@ class Game {
 	placeInTable(y, x) {
 		const piece = document.createElement('div');
 		piece.classList.add('piece');
-		piece.classList.add(`p${this.currPlayer}`);
+		piece.classList.add(`${this.currPlayer.colorName}`);
+		piece.style.backgroundColor = `${this.currPlayer.colorName}`;
 		piece.style.top = -50 * (y + 2);
 		const spot = document.getElementById(`${y}-${x}`);
 		spot.append(piece);
@@ -74,7 +84,6 @@ class Game {
 		}, 100);
 		const top = document.querySelector('#column-top');
 		top.removeEventListener('click', this.handleThisClick);
-		button.innerText = 'RETRY';
 	}
 	handleClick(evt) {
 		// get x from ID of clicked cell
@@ -90,14 +99,14 @@ class Game {
 		// check for win
 		if (this.checkForWin()) {
 			this.gameOver = true;
-			return this.endGame(`Player ${this.currPlayer} won!`);
+			return this.endGame(`${this.currPlayer.colorName.toUpperCase()} won!`);
 		}
 		// check for tie
 		if (this.board.every((row) => row.every((cell) => cell))) {
 			return this.endGame('Tie!');
 		}
 		// switch players
-		this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+		this.currPlayer = this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
 	}
 	checkForWin() {
 		let { width, height } = this;
@@ -124,8 +133,6 @@ class Game {
 		}
 	}
 }
-
-new Game(7, 6);
 
 // const WIDTH = 7;
 // const HEIGHT = 6;

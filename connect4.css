@@ -8,8 +8,22 @@ body {
 	background-color: rgb(39, 39, 39);
 }
 
-.title {
-	color: rgb(204, 3, 3);
+h1 {
+	color: rgb(33, 214, 205);
+}
+
+input {
+	display: inline-block;
+	border: 3px solid white;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 10px;
+	background-color: rgb(204, 204, 255);
+}
+
+label {
+	color: lavender;
+	font-weight: bold;
 }
 
 .start {
@@ -17,7 +31,8 @@ body {
 	color: white;
 	font-weight: bold;
 	font-size: large;
-	border-radius: 20%;
+	border: 2px solid white;
+	border-radius: 10px;
 	padding: 10px;
 	margin: 10px;
 }
@@ -34,7 +49,7 @@ body {
 #board td {
 	width: 50px;
 	height: 50px;
-	border: solid 1px #666;
+	border: solid 3px #666;
 }
 
 /* pieces are div within game table cells: draw as colored circles */
@@ -58,18 +73,18 @@ body {
 	}
 }
 
-.piece.p1 {
+/* .piece.p1 {
 	background-color: red;
 }
 
 .piece.p2 {
 	background-color: blue;
-}
+} */
 
 /* column-top is table row of clickable areas for each column */
 
 #column-top td {
-	border: dashed 1px lightgray;
+	border: dashed 3px lightgray;
 }
 
 #column-top td:hover {
